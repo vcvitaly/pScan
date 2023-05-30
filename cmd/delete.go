@@ -24,6 +24,7 @@ package cmd
 import (
 	"PowerfulCLIAppsInGo/pScan/scan"
 	"fmt"
+	"github.com/spf13/viper"
 	"io"
 	"os"
 
@@ -38,10 +39,7 @@ var deleteCmd = &cobra.Command{
 	SilenceUsage: true,
 	Args:         cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		hostsFile, err := cmd.Flags().GetString(hostsFileCmdName)
-		if err != nil {
-			return err
-		}
+		hostsFile := viper.GetString(hostsFileCmdName)
 
 		return deleteAction(os.Stdout, hostsFile, args)
 	},

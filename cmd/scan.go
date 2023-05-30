@@ -25,6 +25,7 @@ import (
 	"PowerfulCLIAppsInGo/pScan/scan"
 	"fmt"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"io"
 	"os"
 )
@@ -37,10 +38,7 @@ var scanCmd = &cobra.Command{
 	Aliases: []string{"s"},
 	Short:   "Run a port scan on the hosts",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		hostsFile, err := cmd.Flags().GetString(hostsFileCmdName)
-		if err != nil {
-			return err
-		}
+		hostsFile := viper.GetString(hostsFileCmdName)
 
 		ports, err := cmd.Flags().GetIntSlice(portsCmdName)
 		if err != nil {
